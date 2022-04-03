@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Student implements Comparable<Student> {
     private String name;
     private int age;
@@ -20,12 +22,15 @@ public class Student implements Comparable<Student> {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(name, age) + 13 * 17;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o==null || getClass()!=o.getClass()) return false;
+        Student student = (Student) o;
+        return name==student.name && age==student.age;
     }
 
     @Override
