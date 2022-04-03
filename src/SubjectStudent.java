@@ -1,5 +1,5 @@
 public enum SubjectStudent {
-    MATHS("Математика"),
+    MATH("Математика"),
     Literature("Литература"),
     Geography ("География"),
     Informatics("Информатика");

@@ -30,7 +30,7 @@ public class Student implements Comparable<Student> {
         if (this == o) return true;
         if (o==null || getClass()!=o.getClass()) return false;
         Student student = (Student) o;
-        return name==student.name && age==student.age;
+        return Objects.equals(name, student.name) && age==student.age;
     }
 
     @Override

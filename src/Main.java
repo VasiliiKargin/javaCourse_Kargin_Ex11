@@ -1,75 +1,56 @@
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         int numMenu = 0;
-
-        Set<Student> students = new HashSet<Student>();
-        students.add(new Student("Иванов Иван Иванович", 15,8, SubjectStudent.MATHS));
+        StudentComparator com = new StudentComparator();
+        TreeSet<Student> students = new TreeSet<>(com);
+        TreeSet<Student> studentReverse= new TreeSet<>();
+        Scanner scr = new Scanner(System.in).useDelimiter("\n");
+        students.add(new Student("Иванов Иван Иванович", 15, 8, SubjectStudent.MATH));
         students.add(new Student("Авякин Семен Семенович", 13, 6, SubjectStudent.Literature));
         students.add(new Student("Авякин Сидор Сидорович", 11, 5, SubjectStudent.Geography));
-        //students.(new Student("Иванов Иван Иванович", 15,8, SubjectStudent.MATHS));
-        Scanner scr = new Scanner(System.in).useDelimiter("\n");
-        //System.out.println(students.get(1).toString());
-        System.out.println(students.toString());
-
         while (numMenu != 5) {
             Menus.MyMenu();
             numMenu = scr.nextInt();
             switch (numMenu) {
                 case 1:
-                    //Set<Student> newStudent = new HashSet<Student>();
+                    int count= students.size();
                     System.out.println("Введи ФИО ученика");
-                    //scr.next();
-                    String fio= scr.nextLine();
+                    String fio = scr.next();
                     System.out.println("Введи возраст ученика");
-                    int age= scr.nextInt();
-                    //students.equals(fio);
+                    int age = scr.nextInt();
                     System.out.println("Введи класс ученика");
-                    int clas= scr.nextInt();
+                    int clas = scr.nextInt();
                     System.out.println("Введи название любимого предмета на английском");
                     students.add(new Student(fio, age, clas, SubjectStudent.valueOf(scr.next())));
-                    System.out.println(students.toString());
-                   /* System.out.println("Введи ФИО ученика");
-                    scr.next();
-                    String fio= scr.nextLine();
-                    System.out.println("Введи возраст ученика");
-                    int age= scr.nextInt();
-                    students.equals(fio);
-                    System.out.println("Введи класс ученика");
-                    int clas= scr.nextInt();
-                    System.out.println("Введи название любимого предмета на английском");
-                    //String sub= scr.nextLine();
-                   // System.out.println("Введи название любимого предмета на русском");
-                    //String sub2= scr.nextLine();
-                    students.add(new Student(fio,age,clas,SubjectStudent.valueOf(scr.next())));*/
-                    //System.out.println(newStudent.toString());
+                    int count2=students.size();
+                    if(count==count2){
+                        System.out.println("Ученик уже в базе");
+                    }
                     break;
-                /*case 2:
-                    students.sort(Student::compareTo);
+                case 2:
                     System.out.println(students.toString());
                     break;
                 case 3:
-                    Comparator<Student> compareStudent = new Comparator<Student>() {
-                        @Override
-                        public int compare(Student s1, Student s2) {
-                            return s2.getName().compareTo(s1.getName()) + (s2.getAge() - s1.getAge());
-                        }
-                    };
-                    Collections.sort(students, compareStudent);
-                    System.out.println(students.toString());
-                    break;*/
+                    studentReverse= (TreeSet)students.descendingSet();
+                    System.out.println(studentReverse.toString());
+                    break;
                 case 4:
                     System.out.println("Введи индекс ученика для удаления!");
                     int indexStudent = scr.nextInt();
-                    students.remove(indexStudent);
-                    System.out.println(students.toString());
+                    students.remove(students.toArray()[indexStudent]);
                     break;
             }
         }
         System.out.println("До свидания!");
     }
 }
+
+class StudentComparator implements Comparator<Student> {
+    public int compare(Student s1, Student s2) {
+        return s1.getName().compareTo(s2.getName()) + (s1.getAge() - s2.getAge());
+    }
+}
+
 
